@@ -18,7 +18,7 @@ Features
 
 ![Alt text for the image](login_page.png)
 
-![Alt text for the image](Neteaver2_.png)
+![Alt text for the image](Netweaver2_page.png)
 
 ## Setup and Installation
 
