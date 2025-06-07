@@ -76,7 +76,7 @@ Bash
 
 Initial Launch and Security Warning
 
-When you run main.py for the first time, a login window will appear. By default, a users.json file is created with an admin:admin credential for convenience.
+When you run main.py for the first time, a login window will appear. By default, a users.json file is created, your username and password are stored here, you will get an encryption key dont lose it!
 
 SECURITY WARNING: For production environments or any setup requiring security, it is CRUCIAL to delete the users.json file immediately after the initial launch and register your own secure credentials through the application's user management interface.
 
