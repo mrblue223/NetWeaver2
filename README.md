@@ -16,23 +16,11 @@ Features
 
 ## Table of Contents
 - [Setup and Installation](#Setup-and-Installation)
-  - [1. Clone the Repository](#1Clone-the-Repository)
-  - [2. Create a Virtual Environment](#2-create-a-virtual-environment)
-  - [3. Activate the Virtual Environment](#3-activate-the-virtual-environment)
-  - [4. Install Dependencies](#4-install-dependencies)
-- [Running NetWeaver](#running-netweaver)
-  - [Initial Launch and Security Warning](#initial-launch-and-security-warning)
-  - [Login and Registration](#login-and-registration)
-- [Using NetWeaver Features](#using-netweaver-features)
-  - [1. Server Control](#1-server-control)
-  - [2. Server Settings](#2-server-settings)
-  - [3. User Management](#3-user-management)
-  - [4. Server Logs](#4-server-logs)
-  - [5. Network Status](#5-network-status)
-- [Stopping NetWeaver](#stopping-netweaver)
-- [Project Structure (for Developers)](#project-structure-for-developers)
-- [Contributing](#contributing)
-- [License](#license)
+- [Running NetWeaver](#Running-NetWeaver)
+- [Using NetWeaver Features](#Using-NetWeaver-Features)
+- [Stopping NetWeaver](#Stopping-NetWeaver)
+- [Contributing](#Contributing)
+- [License](#Licence)
 
 ## Pictures of NetWeaver2
 
@@ -44,7 +32,7 @@ Features
 
 To get NetWeaver up and running, follow these steps:
 
-# 1. Clone the Repository
+1. Clone the Repository
 Bash
         
         git clone <repository-url>
@@ -180,5 +168,7 @@ Project Structure (for Developers)
 
 (This section is a placeholder. You can add guidelines for contributing to your project here.)
 License
+
+## Licence
 
 This project is licensed under the The Unlicense. You are free to use, modify, and distribute this software for any purpose, without any conditions whatsoever.
