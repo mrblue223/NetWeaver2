@@ -15,8 +15,7 @@ Features
     Network Status Monitoring: Provides basic insights into network connections.
 
 ## Table of Contents
-- [Features](#features)
-- [Setup and Installation](#setup-and-installation)
+- [Setup and Installation](#Setup-and-Installation)
   - [1. Clone the Repository](#1-clone-the-repository)
   - [2. Create a Virtual Environment](#2-create-a-virtual-environment)
   - [3. Activate the Virtual Environment](#3-activate-the-virtual-environment)
