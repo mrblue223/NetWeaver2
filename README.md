@@ -1,145 +1,157 @@
-## NetWeaver2 | Multi-Protocol Server GUI
+## NetWeaver2
 
-NetWeaver is a versatile, multi-threaded server application equipped with an intuitive graphical user interface (GUI) built using Tkinter. It empowers users to host and manage various network services directly from their desktop, supporting TCP, Web (HTTP/HTTPS), and FTP protocols.
+NetWeaver is a multi-threaded server application with a modern, dark-themed graphical user interface (GUI) built using Tkinter. It supports various server modes including TCP, Web (HTTP), HTTPS, and FTP, along with user authentication and management.
 Features
 
-    Multi-Protocol Support: Host TCP, HTTP, HTTPS, and FTP services.
+    Multi-threaded Server: Handles multiple client connections concurrently.
+    Multiple Server Modes:
+        TCP Server: Basic TCP communication.
+        Web Server (HTTP): Serves static web content from a specified root directory.
+        HTTPS Server: Secure web serving with SSL/TLS encryption (requires certificate and key files).
+        FTP Server: Basic FTP operations (authentication, directory listing, file transfer).
+    User Authentication System: Secure login and user management using bcrypt for password hashing.
+    Intuitive GUI: Tkinter-based interface for easy server control, settings configuration, user management, and real-time logging.
+    Real-time Logging: Displays server activities and connection information in a dedicated log area.
+    Network Status Monitoring: Provides basic insights into network connections.
 
-    User Management: Securely manage user accounts with bcrypt password hashing for application access.
+## Setup and Installation
 
-    Intuitive GUI: A modern, dark-themed interface for easy server control, configuration, and monitoring.
+To get NetWeaver up and running, follow these steps:
+1. Clone the Repository
+Bash
+        
+        git clone <repository-url>
+        cd NetWeaver
 
-    Real-time Logging: View detailed server activity and connection logs directly within the application.
+2. Create a Virtual Environment
 
-    Dynamic Settings: Configure server parameters like ports, web root directories, FTP root directories, and SSL certificates through the GUI.
+It's highly recommended to use a virtual environment to manage project dependencies.
+Bash
 
-    Network Status: Monitor the server's local IP address and active port.
+        python -m venv venv
 
-## Prerequisites
+3. Activate the Virtual Environment
 
-Before running NetWeaver, ensure you have:
+    On Windows:
+    Bash
 
-    Python 3.x installed.
+       .\venv\Scripts\activate
 
-    The following Python packages:
+On macOS/Linux:
+Bash
 
-        bcrypt
+    source venv/bin/activate
 
-        Pillow (PIL)
+4. Install Dependencies
 
-## Installation
+NetWeaver requires the following Python packages:
 
-It is recommended to use a virtual environment to manage NetWeaver's dependencies.
+    Pillow (for image handling in the GUI)
+    bcrypt (for password hashing in user management)
 
-    Activate the Virtual Environment:
-    If you have already created a virtual environment named venv in your project directory:
+Install them using pip:
+Bash
 
-        On Windows:
+    pip install Pillow bcrypt
 
-        .\venv\Scripts\activate
+## Running NetWeaver
 
+Initial Launch and Security Warning
 
-        On macOS/Linux:
+When you run main.py for the first time, a login window will appear. By default, a users.json file is created with an admin:admin credential for convenience.
 
-        source venv/bin/activate
+SECURITY WARNING: For production environments or any setup requiring security, it is CRUCIAL to delete the users.json file immediately after the initial launch and register your own secure credentials through the application's user management interface.
 
+To start the application:
+Bash
 
-    You will see (venv) pre-pended to your terminal prompt, indicating the virtual environment is active.
+    python main.py
 
-    Deactivate the Virtual Environment (when you're done working with NetWeaver):
-    Simply type:
+Login and Registration
 
-    deactivate
+    Upon launching, you will be presented with a login window.
+    You can use the default admin:admin credentials (if users.json exists) to log in for the first time.
+    Alternatively, you can click "Register" to create a new user account.
+    Once authenticated, the main NetWeaver GUI will appear.
+    It is recommeneded to delete users.json and register your own credentials.
 
+## Using NetWeaver Features
 
-    This will exit the virtual environment.
+1. Server Control
 
-## Usage
+The left sidebar of the GUI provides core server controls.
 
-Running the Application
+    Status: Displays the current status of the server (Stopped, Running).
+    Port: Enter the port number on which the server will listen (e.g., 8080).
+    Server Mode: Select the desired server type using the radio buttons:
+        TCP: For generic TCP communication.
+        Web: For serving HTTP content.
+        HTTPS: For serving secure HTTP content using SSL/TLS.
+        FTP: For file transfer protocol services.
+    Start Server Button: Initiates the server in the selected mode and on the specified port.
+    Stop Server Button: Shuts down the running server.
 
-To start NetWeaver, ensure your virtual environment is activated, then navigate to the project directory in your terminal and run the main.py file:
+2. Server Settings
 
-python main.py
+Access the "Settings" tab from the main notebook area. These settings are mode-specific.
 
+    Web Root Directory (for Web/HTTPS modes):
+        Click "Browse" to select the folder from which web files will be served.
+        This directory will be the root for all web requests.
+    FTP Root Directory (for FTP mode):
+        Click "Browse" to select the folder that will serve as the root for FTP operations.
+        FTP users will be restricted to this directory and its subdirectories.
+    SSL Certificate and Key Files (for HTTPS mode):
+        Click "Browse" for "SSL Certificate File" to select your .pem certificate file.
+        Click "Browse" for "SSL Key File" to select your .pem key file.
+        These are essential for enabling secure HTTPS connections.
 
-Initial Login (IMPORTANT SECURITY NOTE!)
+3. User Management
 
-Upon launching NetWeaver, you will be presented with a login screen.
+Access the "User Management" tab from the main notebook area.
 
-DEFAULT CREDENTIALS: For first-time use are in users.json, the default administrative username and password are:
+    Add New User:
+        Enter a Username and Password in the respective fields.
+        Click the "Add User" button.
+        User data is stored in users.json with bcrypt-hashed passwords.
+    Authenticate User:
+        Enter a Username and Password in the respective fields.
+        Click the "Authenticate User" button to verify credentials.
 
-    Username: admin
+4. Server Logs
 
-    Password: admin
+Access the "Logs" tab from the main notebook area.
 
-## SECURITY RECOMMENDATION:
+    This tab displays real-time logs of server activities, including connections, requests, errors, and informational messages.
+    Different log message types (info, success, warning, error) are color-coded for readability.
 
-It is HIGHLY recommended that you immediately delete the users.json file (if it exists) and register a new, strong username and password for the application's login to ensure security. The users.json file stores hashed user credentials.
+5. Network Status
 
-After logging in, the main NetWeaver GUI will appear.
-Navigating the GUI
+Access the "Network Status" tab from the main notebook area.
 
-The main GUI consists of a sidebar for server controls and a tabbed area for different functionalities:
+    This tab provides basic information about active network connections related to the server.
 
-    Server Control (Sidebar):
+## Stopping NetWeaver
 
-        Status: Displays if the server is Running or Stopped.
+To gracefully stop the NetWeaver server, click the "Stop Server" button in the sidebar of the GUI. This will shut down the server threads and close the listening socket.
 
-        Port: Set the port for the server to listen on.
+If you close the GUI window directly while the server is running, the application will also attempt to shut down the server gracefully.
+Project Structure (for Developers)
 
-        Start Server / Stop Server: Buttons to control the server's operation.
+    main.py: Entry point of the application.
+    gui.py: Contains the Tkinter GUI implementation (TCPServerGUI and LoginWindow).
+    server_core.py: Manages the main server loop and spawns client handler threads for different modes.
+    tcp_handler.py: Handles individual TCP client connections.
+    web_handler.py: Handles HTTP/HTTPS client connections, serving files.
+    ftp_handler.py: Handles FTP client connections, supporting basic FTP commands.
+    user.py: Manages user authentication, including password hashing and loading/saving user data to users.json.
+    constants.py: Stores global configuration flags and variables.
+    users.json: (Generated at first run) Stores user credentials.
+    assets/: Directory for application icons and other assets.
 
-        Server Mode: Radio buttons to select the desired protocol (TCP, Web, HTTPS, FTP).
+## Contributing
 
-        Navigation Buttons: Quick links to the "Settings", "Logs", "User Management", and "Network Status" tabs.
-
-    Server Log Tab: Shows real-time activity and error messages from the server.
-
-    Server Settings Tab: Provides mode-specific configuration options (e.g., Web Root Directory, SSL certificate paths, FTP Root Directory).
-
-    User Management Tab: Allows you to add new users and test user authentication for the application's login.
-
-    Network Status Tab: Displays the server's local IP address and the currently active port.
-
-## Starting and Stopping the Server
-
-    Select a Server Mode: Choose between TCP, web(HTTP), HTTPS, or FTP using the buttons in the sidebar.
-
-    Configure Settings (if necessary): If you select Web, HTTPS, or FTP mode, switch to the "Server Settings" tab and specify the required directories (Web Root, FTP Root) and SSL certificate/key files for HTTPS. Use the "Browse" buttons to easily select paths.
-
-    Set the Port: Enter the desired port number (e.g., 8080 for web, 21 for FTP) in the "Port" entry.
-
-    Start Server: Click the "Start Server" button. The server status will change to "Running".
-
-    Stop Server: Click the "Stop Server" button to shut down the active server.
-
-## Server Modes
-
-TCP Server
-
-A basic TCP server that listens for incoming connections and sends a simple "ACK!" response to any received data.
-Web Server (HTTP)
-
-Serves static files from the specified "Web Root Directory" over HTTP. Supports basic GET requests and serves index.html by default for directory requests. Includes basic directory traversal protection.
-HTTPS Server
-
-Extends the Web Server functionality by encrypting communication using SSL/TLS. Requires valid SSL certificate (.crt or .pem) and key (.key or .pem) files. These must be selected in the "Server Settings" tab.
-FTP Server
-
-A simple FTP server that allows clients to connect, authenticate, list directories, and transfer files (RETR for download, STOR for upload).
-
-    Default FTP Protocol Credentials: For the FTP protocol itself (not the GUI login), the server currently uses hardcoded credentials:
-
-        Username: ftpuser
-
-        Password: ftppass
-
-    FTP Root Directory: Files will be served from and stored in the specified "FTP Root Directory".
-
-Contributing
-
-Feel free to fork the repository, open issues, and submit pull requests.
+(This section is a placeholder. You can add guidelines for contributing to your project here.)
 License
 
-This project is released under The Unlicense. For more details, see https://unlicense.org/
+This project is licensed under the The Unlicense. You are free to use, modify, and distribute this software for any purpose, without any conditions whatsoever.
