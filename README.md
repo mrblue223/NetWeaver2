@@ -16,7 +16,7 @@ Features
 
 ## Table of Contents
 - [Setup and Installation](#Setup-and-Installation)
-  - [1. Clone the Repository](#1-clone-the-repository)
+  - [1. Clone the Repository](#1Clone-the-Repository)
   - [2. Create a Virtual Environment](#2-create-a-virtual-environment)
   - [3. Activate the Virtual Environment](#3-activate-the-virtual-environment)
   - [4. Install Dependencies](#4-install-dependencies)
@@ -43,7 +43,8 @@ Features
 ## Setup and Installation
 
 To get NetWeaver up and running, follow these steps:
-1. Clone the Repository
+
+# 1. Clone the Repository
 Bash
         
         git clone <repository-url>
