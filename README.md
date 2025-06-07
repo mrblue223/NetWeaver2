@@ -14,6 +14,27 @@ Features
     Real-time Logging: Displays server activities and connection information in a dedicated log area.
     Network Status Monitoring: Provides basic insights into network connections.
 
+## Table of Contents
+- [Features](#features)
+- [Setup and Installation](#setup-and-installation)
+  - [1. Clone the Repository](#1-clone-the-repository)
+  - [2. Create a Virtual Environment](#2-create-a-virtual-environment)
+  - [3. Activate the Virtual Environment](#3-activate-the-virtual-environment)
+  - [4. Install Dependencies](#4-install-dependencies)
+- [Running NetWeaver](#running-netweaver)
+  - [Initial Launch and Security Warning](#initial-launch-and-security-warning)
+  - [Login and Registration](#login-and-registration)
+- [Using NetWeaver Features](#using-netweaver-features)
+  - [1. Server Control](#1-server-control)
+  - [2. Server Settings](#2-server-settings)
+  - [3. User Management](#3-user-management)
+  - [4. Server Logs](#4-server-logs)
+  - [5. Network Status](#5-network-status)
+- [Stopping NetWeaver](#stopping-netweaver)
+- [Project Structure (for Developers)](#project-structure-for-developers)
+- [Contributing](#contributing)
+- [License](#license)
+
 ## Pictures of NetWeaver2
 
 ![Alt text for the image](login_page.png)
