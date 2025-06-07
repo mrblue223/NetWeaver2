@@ -15,18 +15,6 @@ Features
 
     Network Status: Monitor the server's local IP address and active port.
 
-## Prerequisites
-
-Before running NetWeaver, ensure you have:
-
-    Python 3.x installed.
-
-    The following Python packages:
-
-        bcrypt
-
-        Pillow (PIL)
-
 ## Installation
 
 It is recommended to use a virtual environment to manage NetWeaver's dependencies.
