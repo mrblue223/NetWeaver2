@@ -27,8 +27,6 @@ Before running NetWeaver, ensure you have:
 
         Pillow (PIL)
 
-It is highly recommended to install these dependencies within a virtual environment.
-
 ## Installation
 
 It is recommended to use a virtual environment to manage NetWeaver's dependencies.
