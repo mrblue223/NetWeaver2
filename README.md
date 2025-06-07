@@ -18,6 +18,7 @@ Features
 - [Pictures of NetWeaver2](#Pictures-of-NetWeaver2)
 - [Setup and Installation](#Setup-and-Installation)
 - [Running NetWeaver](#Running-NetWeaver)
+- [Login and Registration](#Login-and-Registration)
 - [Using NetWeaver Features](#Using-NetWeaver-Features)
 - [Stopping NetWeaver](#Stopping-NetWeaver)
 - [Contributing](#Contributing)
@@ -83,13 +84,17 @@ Bash
 
     python main.py
 
-Login and Registration
+## Login and Registration
 
     Upon launching, you will be presented with a login window.
     You can use the default admin:admin credentials (if users.json exists) to log in for the first time.
     Alternatively, you can click "Register" to create a new user account.
     Once authenticated, the main NetWeaver GUI will appear.
     It is recommeneded to delete users.json and register your own credentials.
+
+User Data Encryption (users.json and encryption_key.key)
+
+
 
 ## Using NetWeaver Features
 
