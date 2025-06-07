@@ -14,6 +14,12 @@ Features
     Real-time Logging: Displays server activities and connection information in a dedicated log area.
     Network Status Monitoring: Provides basic insights into network connections.
 
+## Pictures of NetWeaver2
+
+![Alt text for the image](login_page.png)
+
+![Alt text for the image](Neteaver2_.png)
+
 ## Setup and Installation
 
 To get NetWeaver up and running, follow these steps:
