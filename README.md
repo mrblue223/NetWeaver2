@@ -19,7 +19,7 @@ Features
 - [Setup and Installation](#Setup-and-Installation)
 - [Running NetWeaver](#Running-NetWeaver)
 - [Login and Registration](#Login-and-Registration)
-- [(IMPORTANT) Managing Your Encryption Key](#(IMPORTANT)-Managing-Your-Encryption-Key)
+- [(IMPORTANT) Managing Your Encryption Key](#Managing-Your-Encryption-Key)
 - [Using NetWeaver Features](#Using-NetWeaver-Features)
 - [Stopping NetWeaver](#Stopping-NetWeaver)
 - [Contributing](#Contributing)
@@ -93,7 +93,7 @@ Bash
     Once authenticated, the main NetWeaver GUI will appear.
     It is recommeneded to delete users.json and register your own credentials.
 
-## (IMPORTANT) Managing Your Encryption Key
+## Managing Your-Encryption Key
 
 The users.json file is AES-encrypted. Its decryption key is saved in encryption_key.key and is only printed to the console once when the file is first generated (during your first user registration).
 
