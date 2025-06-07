@@ -19,6 +19,7 @@ Features
 - [Setup and Installation](#Setup-and-Installation)
 - [Running NetWeaver](#Running-NetWeaver)
 - [Login and Registration](#Login-and-Registration)
+- [(IMPORTANT) Managing Your Encryption Key](#(IMPORTANT)-Managing-Your-Encryption-Key)
 - [Using NetWeaver Features](#Using-NetWeaver-Features)
 - [Stopping NetWeaver](#Stopping-NetWeaver)
 - [Contributing](#Contributing)
@@ -92,9 +93,17 @@ Bash
     Once authenticated, the main NetWeaver GUI will appear.
     It is recommeneded to delete users.json and register your own credentials.
 
-User Data Encryption (users.json and encryption_key.key)
+## (IMPORTANT) Managing Your Encryption Key
 
+The users.json file is AES-encrypted. Its decryption key is saved in encryption_key.key and is only printed to the console once when the file is first generated (during your first user registration).
 
+Crucial Security Steps:
+
+    Backup Immediately: Copy encryption_key.key to a secure, off-server location. Losing this key means permanent loss of access to your users.json data.
+    Delete Local Copy (Recommended): After backing up, delete encryption_key.key from the server's directory. This prevents unauthorized decryption if the server is compromised. The server loads the key into memory at startup, so it won't affect current operation.
+    Restore Key for Migrations/Loss: If moving users.json or restarting after key deletion, place your backed-up encryption_key.key in the server's directory before starting the application.
+
+Always keep your encryption_key.key highly secure and separate from your users.json file.
 
 ## Using NetWeaver Features
 
