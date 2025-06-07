@@ -15,7 +15,7 @@ Features
     Network Status Monitoring: Provides basic insights into network connections.
 
 ## Table of Contents
-- [Pictures of NetWeaver2](Pictures-of-NetWeaver2)
+- [Pictures of NetWeaver2](#Pictures-of-NetWeaver2)
 - [Setup and Installation](#Setup-and-Installation)
 - [Running NetWeaver](#Running-NetWeaver)
 - [Using NetWeaver Features](#Using-NetWeaver-Features)
