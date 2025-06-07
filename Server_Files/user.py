@@ -9,27 +9,46 @@ USER_DATA_FILE = 'users.json'
 # Define the path to the encryption key file
 KEY_FILE = 'encryption_key.key'
 
+# Global variable to store the Fernet cipher suite instance.
+# It will be initialized only once when _get_cipher_suite() is first called.
+_cipher_suite_instance = None
+
+# Global flag to track if the encryption key was newly generated in this session.
+# This ensures the "key generated" message is printed only once per application run.
+_key_was_newly_generated_this_session = False
+
 def _load_or_generate_key():
     """
     Loads the encryption key from a file, or generates a new one if it doesn't exist.
-    If a new key is generated, it is saved to KEY_FILE.
+    Sets the global flag `_key_was_newly_generated_this_session` based on key creation.
     """
+    global _key_was_newly_generated_this_session
     if os.path.exists(KEY_FILE):
         with open(KEY_FILE, 'rb') as f:
             key = f.read()
+        _key_was_newly_generated_this_session = False # Key already existed
     else:
         key = Fernet.generate_key()
         with open(KEY_FILE, 'wb') as f:
             f.write(key)
-        print(f"Encryption key generated and saved to '{KEY_FILE}'. Keep this file secure!")
+        _key_was_newly_generated_this_session = True # New key was generated
     return key
 
-# Initialize Fernet with the key
-ENCRYPTION_KEY = _load_or_generate_key()
-cipher_suite = Fernet(ENCRYPTION_KEY)
+def _get_cipher_suite():
+    """
+    Ensures the Fernet cipher suite is initialized and returns it.
+    This function will load/generate the key and create the cipher suite
+    only once per application run.
+    """
+    global _cipher_suite_instance
+    if _cipher_suite_instance is None:
+        encryption_key = _load_or_generate_key()
+        _cipher_suite_instance = Fernet(encryption_key)
+    return _cipher_suite_instance
 
 def _load_users():
     """Loads user data from the encrypted JSON file."""
+    cipher_suite = _get_cipher_suite() # Ensure cipher_suite is initialized
     if not os.path.exists(USER_DATA_FILE):
         return {}
     with open(USER_DATA_FILE, 'rb') as f: # Read as binary
@@ -41,11 +60,13 @@ def _load_users():
             decrypted_data = cipher_suite.decrypt(encrypted_data)
             return json.loads(decrypted_data.decode('utf-8'))
         except Exception as e:
+            # In a GUI application, consider using a logging callback instead of print
             print(f"Error decrypting or decoding user data: {e}")
             return {} # Return empty dict if decryption fails or data is corrupted
 
 def _save_users(users):
     """Saves user data to the encrypted JSON file."""
+    cipher_suite = _get_cipher_suite() # Ensure cipher_suite is initialized
     plain_text_data = json.dumps(users, indent=4).encode('utf-8')
     encrypted_data = cipher_suite.encrypt(plain_text_data)
     with open(USER_DATA_FILE, 'wb') as f: # Write as binary
@@ -61,16 +82,31 @@ def check_password(password, hashed_password):
     try:
         return bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8'))
     except ValueError:
+        # This can happen if the hashed_password is not a valid bcrypt hash
         return False
 
 def add_user(username, password):
     """Adds a new user to the system."""
-    users = _load_users()
+    global _key_was_newly_generated_this_session
+    
+    # This call will implicitly trigger _get_cipher_suite() and _load_or_generate_key()
+    # if they haven't been called yet in this session, setting _key_was_newly_generated_this_session.
+    users = _load_users() 
+    
     if username in users:
         return False, "Username already exists."
     
     users[username] = hash_password(password)
     _save_users(users)
+
+    # Print the key generation message ONLY if a new key was generated
+    # in this session and this is the first time we're acknowledging it.
+    if _key_was_newly_generated_this_session:
+        print(f"Encryption key generated and saved to '{KEY_FILE}'. Keep this file secure!")
+        # Reset the flag to ensure the message is not printed again in the same session.
+        _key_was_newly_generated_this_session = False
+        return True, "User added successfully. Encryption key generated."
+    
     return True, "User added successfully."
 
 def authenticate_user(username, password):
