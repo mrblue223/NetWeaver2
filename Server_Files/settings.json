@@ -1,0 +1,9 @@
+{
+    "port": "8080",
+    "server_mode": "tcp",
+    "web_root_dir": "/home/mrblue/website_templates/website-templates.github.io/build",
+    "ftp_root_dir": "/home/mrblue/Documents/NetWeaver2/Server_Files2/ftp_root",
+    "ssl_cert_file": "",
+    "ssl_key_file": "",
+    "max_connections": 10
+}
