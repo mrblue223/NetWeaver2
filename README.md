@@ -93,6 +93,50 @@ Bash
     Once authenticated, the main NetWeaver GUI will appear.
     It is recommeneded to delete users.json and register your own credentials.
 
+Defined Roles:
+
+    admin (Administrator):
+
+        Full control over the server.
+
+        Can start and stop the server.
+
+        Can modify all server settings (port, server mode, root directories, SSL files, max connections).
+
+        Has complete access to User Management (add, delete, update passwords, and assign/change roles for other users).
+
+        Can view logs and network status.
+
+        The admin user is the primary user for server configuration and user administration.
+
+operator (Operator):
+
+        Limited operational control.
+
+        Cannot start or stop the server.
+
+        Cannot modify server settings.
+
+        Cannot access User Management features (add/delete/update users or roles).
+
+        Can view logs and network status.
+
+        Ideal for monitoring and basic troubleshooting without affecting server operation or security.
+
+ guest (Guest):
+
+        Read-only access.
+
+        Cannot start or stop the server.
+
+        Cannot modify server settings.
+
+        Cannot access User Management features.
+
+        Can only view logs and network status.
+
+        Suitable for general monitoring and informational purposes.
+
 ## Managing Your-Encryption Key
 
 The users.json file is AES-encrypted. Its decryption key is saved in encryption_key.key and is only printed to the console once when the file is first generated (during your first user registration).
