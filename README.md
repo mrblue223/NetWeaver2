@@ -3,11 +3,18 @@
 NetWeaver is a powerful and user-friendly server application built with Python's Tkinter GUI framework. It's designed to simplify the process of setting up and managing various network servers, including basic TCP, HTTP Web servers, secure HTTPS servers, and FTP servers. With its intuitive dark-themed interface, real-time monitoring, and robust security features like Role-Based Access Control and brute-force protection, NetWeaver provides a comprehensive solution for your local server needs.
 
 ## Table of Contents
+- [Pictures](#Pictures)
 - [Features](#Features)
 - [Setup and Installation](#Setup-and-Installation)
 - [Usage](#Usage)
 - [File Structure (Key Files)](#File-Structure-(Key-Files))
 - [Contributing](#Contributing)
+
+## Pictures
+
+![login_page.png](login_page.png)
+
+![Netweaver2_page.png](Netweaver2_page.png)
 
 ## Features
 
