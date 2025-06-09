@@ -1,233 +1,434 @@
 ## NetWeaver2
 
-NetWeaver is a multi-threaded server application with a modern, dark-themed graphical user interface (GUI) built using Tkinter. It supports various server modes including TCP, Web (HTTP), HTTPS, and FTP, along with user authentication and management.
-Features
-
-    Multi-threaded Server: Handles multiple client connections concurrently.
-    Multiple Server Modes:
-        TCP Server: Basic TCP communication.
-        Web Server (HTTP): Serves static web content from a specified root directory.
-        HTTPS Server: Secure web serving with SSL/TLS encryption (requires certificate and key files).
-        FTP Server: Basic FTP operations (authentication, directory listing, file transfer).
-    User Authentication System: Secure login and user management using bcrypt for password hashing.
-    Intuitive GUI: Tkinter-based interface for easy server control, settings configuration, user management, and real-time logging.
-    Real-time Logging: Displays server activities and connection information in a dedicated log area.
-    Network Status Monitoring: Provides basic insights into network connections.
+NetWeaver is a powerful and user-friendly server application built with Python's Tkinter GUI framework. It's designed to simplify the process of setting up and managing various network servers, including basic TCP, HTTP Web servers, secure HTTPS servers, and FTP servers. With its intuitive dark-themed interface, real-time monitoring, and robust security features like Role-Based Access Control and brute-force protection, NetWeaver provides a comprehensive solution for your local server needs.
 
 ## Table of Contents
-- [Pictures of NetWeaver2](#Pictures-of-NetWeaver2)
+- [Features](#Features)
 - [Setup and Installation](#Setup-and-Installation)
-- [Running NetWeaver](#Running-NetWeaver)
-- [Login and Registration](#Login-and-Registration)
-- [(IMPORTANT) Managing Your Encryption Key](#Managing-Your-Encryption-Key)
-- [Using NetWeaver Features](#Using-NetWeaver-Features)
-- [Stopping NetWeaver](#Stopping-NetWeaver)
+- [Usage](#Usage)
+- [File Structure (Key Files)](#File-Structure-(Key-Files))
 - [Contributing](#Contributing)
-- [License](#Licence)
 
-## Pictures of NetWeaver2
+## Features
 
-![Alt text for the image](login_page.png)
+NetWeaver offers a rich set of functionalities to enhance your server management experience:
+1. Multi-Mode Server Operation
 
-![Alt text for the image](Netweaver2_page.png)
+NetWeaver supports four distinct server modes, configurable via the GUI:
 
-## Setup and Installation
+    TCP Server:
 
-To get NetWeaver up and running, follow these steps:
+        Purpose: Establishes a raw TCP socket server. Ideal for custom client-server applications that require direct byte-stream communication.
 
-1. Clone the Repository
-Bash
-        
-        git clone <repository-url>
-        cd NetWeaver
+        Functionality: Listens for incoming TCP connections and can be configured to handle them according to custom logic (implemented in tcp_handler.py).
 
-2. Create a Virtual Environment
+    Web Server (HTTP):
 
-It's highly recommended to use a virtual environment to manage project dependencies.
-Bash
+        Purpose: Serves static web content (HTML, CSS, JavaScript, images) over HTTP.
 
-        python -m venv venv
+        Functionality: Allows you to designate a "Web Root Directory" where your website files are stored. When clients request files, the server fetches them from this directory and sends them back.
 
-3. Activate the Virtual Environment
+    HTTPS Server:
 
-    On Windows:
-    Bash
+        Purpose: A secure version of the Web Server, using SSL/TLS encryption for all communications. Essential for serving content where data privacy is critical.
 
-       .\venv\Scripts\activate
+        Functionality: Requires valid SSL certificate (.pem or .crt) and key (.pem or .key) files. All data exchanged between the server and clients is encrypted, protecting against eavesdropping and tampering.
 
-On macOS/Linux:
-Bash
+    FTP Server:
 
-    source venv/bin/activate
+        Purpose: Facilitates file transfers between the server and FTP clients.
 
-4. Install Dependencies
+        Functionality: Designate an "FTP Root Directory" from which files can be uploaded to or downloaded from the server. Includes basic FTP commands for navigation and file operations. Default login: ftpuser / ftppass.
 
-NetWeaver requires the following Python packages:
+2. Intuitive Graphical User Interface (GUI)
 
-    Pillow (for image handling in the GUI)
-    bcrypt (for password hashing in user management)
+The NetWeaver GUI is built with Tkinter, offering a modern and responsive user experience:
 
-Install them using pip:
-Bash
+    Modern Dark Theme: Enjoy a visually appealing interface designed for readability and comfort, especially during extended use.
 
-    pip install Pillow bcrypt
+    Centralized Server Control: Start and stop any server mode with dedicated buttons.
 
-## Running NetWeaver
+    Configurable Settings: Easily adjust server parameters such as the listening Port and Max Concurrent Connections directly from the GUI.
 
-Initial Launch and Security Warning
+    Dynamic Mode Selection: Switch between server modes effortlessly using intuitive radio buttons. The settings interface adapts dynamically to show only relevant configuration options for the selected mode.
 
-When you run main.py for the first time, a login window will appear. By default, a users.json file the default username and password are admin:admin!
+    Real-time Activity Log: A dedicated "Server Log" tab provides continuous, color-coded feedback on server operations, client connections, and any warnings or errors encountered.
 
-SECURITY WARNING: For production environments or any setup requiring security, it is CRUCIAL to delete the users.json file immediately after the initial launch and register your own secure credentials through the application's user management interface.
+    Network Status Monitoring: The "Network Status" tab displays real-time information, including the server's IP address, current port, the number of active client connections, and a placeholder for data transfer rates.
 
-To start the application:
-Bash
+    Persistent Configuration: All your server settings (port, chosen mode, directory paths, SSL file paths, max connections) are automatically saved to settings.json upon changes and loaded on application startup, so your configurations persist across sessions.
 
-    python main.py
+3. Role-Based Access Control (RBAC)
 
-## Login and Registration
-
-    Upon launching, you will be presented with a login window.
-    You can use the default admin:admin credentials (if users.json exists) to log in for the first time.
-    Alternatively, you can click "Register" to create a new user account.
-    Once authenticated, the main NetWeaver GUI will appear.
-    It is recommeneded to delete users.json and register your own credentials.
-
+NetWeaver implements a robust RBAC system to ensure secure management and operation, assigning distinct permissions based on user roles:
 Defined Roles:
 
     admin (Administrator):
 
-        Full control over the server.
+        Full Control: Has unrestricted access to all features.
 
-        Can start and stop the server.
+        Server Operations: Can start and stop the server.
 
-        Can modify all server settings (port, server mode, root directories, SSL files, max connections).
+        Configuration: Can modify all server settings (port, server mode, root directories, SSL files, max connections).
 
-        Has complete access to User Management (add, delete, update passwords, and assign/change roles for other users).
+        User Management: Possesses complete administrative rights within the "User Management" tab, allowing them to add, delete, update passwords, and assign/change roles for any user.
 
-        Can view logs and network status.
+        Monitoring: Can view server logs and network status.
 
-        The admin user is the primary user for server configuration and user administration.
+        This is the primary role for server setup, maintenance, and user administration.
 
-operator (Operator):
+    operator (Operator):
 
-        Limited operational control.
+        Operational Access: Can monitor server activities but has limited operational control.
 
-        Cannot start or stop the server.
+        Server Operations: Cannot start or stop the server.
 
-        Cannot modify server settings.
+        Configuration: Cannot modify any server settings.
 
-        Cannot access User Management features (add/delete/update users or roles).
+        User Management: Has no access to user management functionalities.
 
-        Can view logs and network status.
+        Monitoring: Can view server logs and network status.
 
-        Ideal for monitoring and basic troubleshooting without affecting server operation or security.
+        This role is ideal for individuals responsible for monitoring server health and performance without the ability to alter critical configurations or user accounts.
 
- guest (Guest):
+    guest (Guest):
 
-        Read-only access.
+        Read-Only Access: The most restrictive role, providing basic visibility.
 
-        Cannot start or stop the server.
+        Server Operations: Cannot start or stop the server.
 
-        Cannot modify server settings.
+        Configuration: Cannot modify any server settings.
 
-        Cannot access User Management features.
+        User Management: Has no access to user management functionalities.
 
-        Can only view logs and network status.
+        Monitoring: Can only view server logs and network status.
 
-        Suitable for general monitoring and informational purposes.
+        Suitable for general oversight or informational purposes, where interaction with server controls is not required.
 
-## Managing Your-Encryption Key
+GUI Integration for RBAC:
 
-The users.json file is AES-encrypted. Its decryption key is saved in encryption_key.key and is only printed to the console once when the file is first generated (during your first user registration).
+The GUI intelligently adapts to the logged-in user's role:
 
-Crucial Security Steps:
+    Dynamic Button States: Interactive elements like "Start Server," "Stop Server," and settings fields are dynamically enabled or disabled.
 
-    Backup Immediately: Copy encryption_key.key to a secure, off-server location. Losing this key means permanent loss of access to your users.json data.
-    Delete Local Copy (Recommended): After backing up, delete encryption_key.key from the server's directory. This prevents unauthorized decryption if the server is compromised. The server loads the key into memory at startup, so it won't affect current operation.
-    Restore Key for Migrations/Loss: If moving users.json or restarting after key deletion, place your backed-up encryption_key.key in the server's directory before starting the application.
+    Tab Access Control: The "User Management" and "Server Settings" tabs might be disabled or hidden for roles that don't have permission to access them, ensuring a clean and secure interface.
 
-Always keep your encryption_key.key highly secure and separate from your users.json file.
+    Role Display: The sidebar prominently displays the role of the currently logged-in user.
 
-## Using NetWeaver Features
+4. Brute-Force Protection
 
-1. Server Control
+To safeguard against unauthorized access attempts, the login system includes a brute-force prevention mechanism:
 
-The left sidebar of the GUI provides core server controls.
+    Failed Attempt Limit: If a user attempts to log in unsuccessfully 3 times consecutively for a specific username.
 
-    Status: Displays the current status of the server (Stopped, Running).
-    Port: Enter the port number on which the server will listen (e.g., 8080).
-    Server Mode: Select the desired server type using the radio buttons:
-        TCP: For generic TCP communication.
-        Web: For serving HTTP content.
-        HTTPS: For serving secure HTTP content using SSL/TLS.
-        FTP: For file transfer protocol services.
-    Start Server Button: Initiates the server in the selected mode and on the specified port.
-    Stop Server Button: Shuts down the running server.
+    Temporary Account Lockout: The system will temporarily lock out that user account.
 
-2. Server Settings
+    Lockout Duration: The user will be unable to attempt login for that username for a period of 5 minutes.
 
-Access the "Settings" tab from the main notebook area. These settings are mode-specific.
+    User Feedback: The login screen provides clear messages, informing the user about the lockout and the remaining time until they can try again.
 
-    Web Root Directory (for Web/HTTPS modes):
-        Click "Browse" to select the folder from which web files will be served.
-        This directory will be the root for all web requests.
-    FTP Root Directory (for FTP mode):
-        Click "Browse" to select the folder that will serve as the root for FTP operations.
-        FTP users will be restricted to this directory and its subdirectories.
-    SSL Certificate and Key Files (for HTTPS mode):
-        Click "Browse" for "SSL Certificate File" to select your .pem certificate file.
-        Click "Browse" for "SSL Key File" to select your .pem key file.
-        These are essential for enabling secure HTTPS connections.
+5. User Management via GUI (Admin Only)
 
-3. User Management
+The "User Management" tab, exclusively accessible to admin users, provides comprehensive tools for managing accounts:
 
-Access the "User Management" tab from the main notebook area.
+    Add New Users: Create new user accounts, assigning their initial role (admin, operator, or guest) directly from the GUI.
 
-    Add New User:
-        Enter a Username and Password in the respective fields.
-        Click the "Add User" button.
-        User data is stored in users.json with bcrypt-hashed passwords.
-    Authenticate User:
-        Enter a Username and Password in the respective fields.
-        Click the "Authenticate User" button to verify credentials.
+    Delete Existing Users: Securely remove any user account from the system.
 
-4. Server Logs
+    Update User Passwords: Change passwords for existing users.
 
-Access the "Logs" tab from the main notebook area.
+    Update User Roles: Modify the role of any existing user (e.g., promoting a guest to an operator or admin).
 
-    This tab displays real-time logs of server activities, including connections, requests, errors, and informational messages.
-    Different log message types (info, success, warning, error) are color-coded for readability.
+    User List: A table displays all registered users along with their assigned roles, offering a clear overview.
 
-5. Network Status
+6. Initial Administrator Setup
 
-Access the "Network Status" tab from the main notebook area.
+For ease of first-time setup or recovery scenarios:
 
-    This tab provides basic information about active network connections related to the server.
+    A temporary safety mechanism in user.py checks for the presence of an admin user.
 
-## Stopping NetWeaver
+    If no user with the admin role is found in users.json, the application will automatically create a default admin user with the username admin and password admin, assigning it the admin role.
 
-To gracefully stop the NetWeaver server, click the "Stop Server" button in the sidebar of the GUI. This will shut down the server threads and close the listening socket.
+    Important Recommendation: After successfully logging in as admin:admin and confirming full administrative access, it is highly recommended to remove this temporary code block from the if __name__ == "__main__": section of user.py. This prevents it from automatically re-creating the default admin on every startup and potentially interfering with your custom user setup.
 
-If you close the GUI window directly while the server is running, the application will also attempt to shut down the server gracefully.
-Project Structure (for Developers)
+7. User Data Encryption/Decryption Utilities
 
-    main.py: Entry point of the application.
-    gui.py: Contains the Tkinter GUI implementation (TCPServerGUI and LoginWindow).
-    server_core.py: Manages the main server loop and spawns client handler threads for different modes.
-    tcp_handler.py: Handles individual TCP client connections.
-    web_handler.py: Handles HTTP/HTTPS client connections, serving files.
-    ftp_handler.py: Handles FTP client connections, supporting basic FTP commands.
-    user.py: Manages user authentication, including password hashing and loading/saving user data to users.json.
-    constants.py: Stores global configuration flags and variables.
-    users.json: (Generated at first run) Stores user credentials.
-    assets/: Directory for application icons and other assets.
+To ensure the security of sensitive user information (like hashed passwords and roles) stored in users.json, the file is encrypted. For scenarios requiring manual inspection or modification of this data, two command-line utility scripts are provided:
+
+    decrypt_users.py:
+
+        Purpose: To decrypt the users.json file into its human-readable plaintext JSON format.
+
+        Usage: Run this script from your terminal. It will read users.json and print the decrypted content to your console.
+
+        Workflow: You should copy this printed output and paste it into a new temporary file (e.g., users.json.decrypted). This temporary file is where you will make your edits.
+
+    encrypt_users.py:
+
+        Purpose: To encrypt a plaintext JSON file (containing user data you've modified) back into the users.json file, overwriting the existing encrypted data.
+
+        Usage: Run this script from the command line. It will prompt you to enter the path to the plaintext JSON file you wish to encrypt.
+
+        Critical Note: Ensure you use the exact same ENCRYPTION_KEY across both decryption and encryption processes. Also, verify that the plaintext JSON file you're encrypting is structurally valid to avoid errors.
+
+Security Advisory: Always handle decrypted user data with extreme caution. Delete any temporary plaintext files (like users.json.decrypted) immediately after you have successfully re-encrypted your users.json file.
+
+## Setup and Installation
+
+To get NetWeaver up and running on your system, follow these detailed steps:
+
+    Prerequisites:
+
+        Python 3.x: Ensure you have Python 3.6 or newer installed. You can download it from python.org.
+
+        pip: Python's package installer, which usually comes bundled with Python installations.
+
+    Download the Project:
+
+        Obtain the NetWeaver project files. If it's a Git repository, you can clone it:
+
+        git clone <repository_url>
+        cd NetWeaver
+
+        Otherwise, download the zip archive and extract it to your desired location.
+
+    Create and Activate a Virtual Environment (Highly Recommended):
+    Using a virtual environment is crucial for managing project-specific dependencies. It isolates the libraries needed for NetWeaver from other Python projects, preventing conflicts.
+
+        Navigate to your project directory: Open your terminal or command prompt and change your current directory to the root of the NetWeaver project (where main.py is located).
+
+        Create the virtual environment:
+
+        python -m venv venv
+
+        This command creates a new directory named venv (you can choose another name) containing the Python executable and pip.
+
+        Activate the virtual environment:
+
+            On Windows (Command Prompt):
+
+            .\venv\Scripts\activate
+
+            On Windows (PowerShell):
+
+            .\venv\Scripts\Activate.ps1
+
+            On macOS/Linux:
+
+            source venv/bin/activate
+
+        Once activated, your terminal prompt will usually show (venv) at the beginning, indicating that you are now working within the isolated environment.
+
+    Install Dependencies:
+    With your virtual environment active, install the necessary Python libraries using pip:
+
+    pip install pillow bcrypt cryptography
+
+        Pillow: Used for image processing, specifically for loading the application icon.
+
+        bcrypt: Provides secure password hashing for user authentication.
+
+        cryptography: Enables strong encryption (Fernet symmetric encryption) for your users.json file.
+
+        Note: tkinter is part of Python's standard library and typically does not require a separate pip install.
+
+    Prepare Directory Structure (for Web/FTP/HTTPS modes):
+
+        Web and FTP Roots: For the Web (HTTP/HTTPS) and FTP server modes, you need dedicated directories to serve files from. Create empty folders named web_root and ftp_root directly within your main NetWeaver project directory.
+
+        NetWeaver/
+        ├── main.py
+        ├── gui.py
+        ├── server_core.py
+        ├── user.py
+        ├── constants.py
+        ├── tcp_handler.py
+        ├── web_handler.py
+        ├── ftp_handler.py
+        ├── users.json
+        ├── settings.json
+        ├── encryption_key.key
+        ├── decrypt_users.py
+        ├── encrypt_users.py
+        ├── assets/
+        │   └── icons8-server-40.png
+        ├── venv/
+        ├── web_root/  <-- Create this
+        └── ftp_root/  <-- Create this
+
+        SSL/TLS Files (for HTTPS): If you plan to use the HTTPS server, you will need an SSL certificate file (e.g., server.crt or server.pem) and its corresponding private key file (e.g., server.key or server.pem). You can generate self-signed certificates for testing or obtain them from a Certificate Authority. Place these files in a secure location and specify their full paths in the GUI's "Server Settings" tab when configuring HTTPS mode.
+
+    Initial Administrator User:
+
+        The first time you run main.py (or if your users.json file is deleted), the application will automatically create a default administrator account.
+
+        Username: admin
+
+        Password: admin
+
+        You will use these credentials to log in and gain full administrative privileges to manage the server and other users.
+
+        Important: After successfully logging in as admin:admin and verifying that you can start/stop the server and manage users, it is highly recommended to remove the temporary code block from the if __name__ == "__main__": section of user.py. This prevents the default admin from being recreated on every startup, which could overwrite any custom admin users you create or pose a minor security risk in a production environment.
+
+## Usage
+
+Once NetWeaver is set up and its dependencies are installed within your virtual environment, you can start using it:
+
+    Start the Application:
+
+        Ensure your virtual environment is active (you should see (venv) in your terminal prompt).
+
+        From your project's root directory, run the main script:
+
+        python main.py
+
+        The NetWeaver login window will appear.
+
+    Login:
+
+        Enter your username and password. For the initial setup, use admin for both.
+
+        Click the "Login" button.
+
+        If authentication is successful, the main NetWeaver GUI window will appear.
+
+        If you make too many failed attempts, the brute-force protection will temporarily lock the account.
+
+        You can also click "Register" to create new guest users directly from this screen.
+
+    Navigate the GUI:
+    The main GUI is divided into a left sidebar for server control and management, and a main content area with tabs for different functionalities:
+
+        Sidebar (Server Control):
+
+            Logged in as: Displays your current username and assigned role (e.g., Role: ADMIN).
+
+            Status: Shows whether the server is "Running" or "Stopped".
+
+            Port: Enter the port number for the server to listen on (e.g., 8080).
+
+            Start Server / Stop Server: Buttons to control the server's operational state. These are only enabled for admin users.
+
+            Server Mode: Select your desired server type:
+
+                TCP
+
+                Web (HTTP)
+
+                HTTPS
+
+                FTP
+
+                Changing the mode will dynamically update the "Server Settings" tab to show relevant options.
+
+        Main Content Tabs:
+
+            Server Log: Provides a live stream of server events, including connection attempts, data transfers, and system messages, categorized by color (info, success, warning, error).
+
+            Server Settings: This tab allows you to configure specific parameters for each server mode:
+
+                Max Concurrent Connections: Set the maximum number of clients that can connect simultaneously.
+
+                Web/HTTPS Mode: Specify the Web Root Directory by typing the path or using the "Browse Web Root" button. This is where your web files will be located.
+
+                HTTPS Mode Only: Provide the full paths to your SSL Certificate File and SSL Key File using the respective "Browse" buttons.
+
+                FTP Mode: Specify the FTP Root Directory using the "Browse FTP Root" button. This will be the home directory for FTP users.
+
+                Note: All fields and browse buttons in the "Server Settings" tab are only editable by admin users.
+
+            User Management: (Accessible only by admin users) This is where you manage user accounts:
+
+                The main area displays a table of all registered users, showing their Username and Role.
+
+                Add User:
+
+                    Enter a desired Username and Password in the input fields.
+
+                    Select the Role (admin, operator, or guest) for the new user from the dropdown.
+
+                    Click the "Add User" button.
+
+                Update Password:
+
+                    Select a user from the table.
+
+                    Enter a new Password in the input field.
+
+                    Click the "Update Password" button.
+
+                Update Role:
+
+                    Select a user from the table.
+
+                    Choose the desired Role (admin, operator, or guest) from the dropdown.
+
+                    Click the "Update Role" button.
+
+                Delete User:
+
+                    Select a user from the table.
+
+                    Click the "Delete User" button. A confirmation dialog will appear.
+
+            Network Status: Displays live network metrics:
+
+                Server IP Address: Your machine's local IP address.
+
+                Server Port: The port the server is currently listening on.
+
+                Active Connections: The number of currently active client connections.
+
+                Data Transfer Rate (KB/s): A placeholder for future implementation of real-time data transfer statistics.
+
+    Closing the Application:
+
+        To safely exit NetWeaver, close the main GUI window using the 'X' button or by pressing Alt+F4 (Windows).
+
+        A confirmation dialog will appear. If the server is running, it will attempt a graceful shutdown before the application closes.
+
+## File Structure (Key Files)
+
+Here's an overview of the main files and their roles in the NetWeaver project:
+
+    main.py: The application's entry point. It initializes the Tkinter root window, handles the login process, and launches the TCPServerGUI.
+
+    gui.py: Contains the core GUI logic, including the TCPServerGUI class (for the main application window) and the LoginWindow class. It manages all widgets, layouts, and GUI-driven interactions with the backend.
+
+    server_core.py: The heart of the server functionality. This module handles the creation, binding, listening, and acceptance of network sockets for all server modes. It spawns threads for client handling.
+
+    user.py: Dedicated to user management. It handles user registration, authentication, password hashing using bcrypt, role assignment, and the encryption/decryption of users.json using cryptography's Fernet. Also includes the brute-force protection logic.
+
+    constants.py: A central place for application-wide constants, such as theme colors, default server parameters, and placeholder values for network status.
+
+    tcp_handler.py: Contains the logic for handling individual client connections when the server is operating in TCP mode.
+
+    web_handler.py: Implements the HTTP/HTTPS request handling, including parsing HTTP requests, serving files from the web root, and sending appropriate HTTP responses.
+
+    ftp_handler.py: Manages the FTP protocol, handling FTP commands (e.g., USER, PASS, PORT, PASV, RETR, STOR) and file transfers for FTP clients.
+
+    users.json: This file stores all registered user accounts, their hashed passwords, and assigned roles. It is encrypted for security.
+
+    settings.json: Stores the last-used server settings (port, mode, directory paths, SSL file paths, etc.) for persistence across sessions.
+
+    encryption_key.key: A binary file that holds the Fernet encryption key used to encrypt and decrypt users.json. It is absolutely critical to keep this file secure and private! If this key is lost or compromised, your users.json data cannot be decrypted, and your user accounts may become inaccessible or vulnerable.
+
+    decrypt_users.py (Utility): A standalone Python script designed to decrypt the users.json file to a human-readable format. Useful for debugging or manual modifications.
+
+    encrypt_users.py (Utility): A standalone Python script designed to encrypt a plaintext user data file back into users.json. Essential after manually modifying decrypted user data.
+
+    assets/: A directory containing static assets, primarily the application icon (icons8-server-40.png).
 
 ## Contributing
 
-(This section is a placeholder. You can add guidelines for contributing to your project here.)
+We welcome contributions to the NetWeaver project! If you encounter any bugs, have suggestions for new features, or would like to improve the existing codebase, please feel free to:
+
+    Report issues through the GitHub Issues tracker.
+
+    Submit feature requests or ideas.
+
+    Fork the repository and submit pull requests with your changes.
+
 License
 
-## Licence
-
-This project is licensed under the The Unlicense. You are free to use, modify, and distribute this software for any purpose, without any conditions whatsoever.
+This project is licensed under The Unlicense. This means you are free to use, modify, distribute, and even sell the software, without any restrictions.
