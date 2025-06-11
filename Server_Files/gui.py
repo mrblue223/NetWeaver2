@@ -11,7 +11,8 @@ import constants
 from server_core import _server_main_loop, stop_server
 from user import (
     authenticate_user, add_user, delete_user, update_user_password,
-    get_all_users, ROLE_ADMIN, ROLE_OPERATOR, ROLE_GUEST, DEFAULT_NEW_USER_ROLE # Added role imports
+    get_all_users, ROLE_ADMIN, ROLE_OPERATOR, ROLE_GUEST, DEFAULT_NEW_USER_ROLE, # Added role imports
+    _get_cipher_suite # Import the cipher suite utility
 )
 
 class TCPServerGUI:
@@ -650,7 +651,7 @@ class TCPServerGUI:
         self.master.after(1000, self._start_network_status_updater) # Update every 1 second
 
     def _save_settings(self):
-        """Saves current server settings to a JSON file. Requires admin role."""
+        """Saves current server settings to an encrypted JSON file. Requires admin role."""
         if self.current_user_role != ROLE_ADMIN: return
         settings = {
             "port": self.port_var.get(),
@@ -662,18 +663,33 @@ class TCPServerGUI:
             "max_connections": self.max_connections_var.get()
         }
         try:
-            with open("settings.json", "w") as f:
-                json.dump(settings, f, indent=4)
-            self.log_message("[*] Server settings saved.", 'info')
+            cipher_suite = _get_cipher_suite()
+            plain_text_data = json.dumps(settings, indent=4).encode('utf-8')
+            encrypted_data = cipher_suite.encrypt(plain_text_data)
+            with open(constants.SETTINGS_FILE, "wb") as f:
+                f.write(encrypted_data)
+            self.log_message("[*] Server settings saved (encrypted).", 'info')
         except Exception as e:
             self.log_message(f"[-] Error saving settings: {e}", 'error')
 
     def _load_settings(self):
-        """Loads server settings from a JSON file."""
+        """Loads server settings from an encrypted JSON file."""
         try:
-            if os.path.exists("settings.json"):
-                with open("settings.json", "r") as f:
-                    settings = json.load(f)
+            if os.path.exists(constants.SETTINGS_FILE):
+                cipher_suite = _get_cipher_suite()
+                with open(constants.SETTINGS_FILE, "rb") as f:
+                    encrypted_data = f.read()
+                    if not encrypted_data:
+                        self.log_message("[*] settings.json is empty. Using default settings.", 'warning')
+                        return
+                
+                try:
+                    decrypted_data = cipher_suite.decrypt(encrypted_data)
+                    settings = json.loads(decrypted_data.decode('utf-8'))
+                except Exception as e:
+                    self.log_message(f"[-] Error decrypting or decoding settings data: {e}. Using default settings.", 'error')
+                    return
+                
                 self.port_var.set(settings.get("port", "8080"))
                 self.server_mode_var.set(settings.get("server_mode", "tcp"))
                 self.web_root_var.set(settings.get("web_root_dir", os.getcwd())) # Default to current dir
@@ -690,7 +706,7 @@ class TCPServerGUI:
                 constants.SSL_KEY_FILE = self.ssl_key_var.get()
                 constants.MAX_CONNECTIONS = self.max_connections_var.get()
 
-                self.log_message("[*] Server settings loaded.", 'info')
+                self.log_message("[*] Server settings loaded (decrypted).", 'info')
             else:
                 self.log_message("[*] settings.json not found. Using default settings.", 'warning')
         except Exception as e:
