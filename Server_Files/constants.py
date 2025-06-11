@@ -27,3 +27,6 @@ SERVER_SOCKET = None # Re-added: Will hold the server's socket object
 # Network Status Placeholders (to be updated by server_core)
 ACTIVE_CONNECTIONS = 0
 DATA_TRANSFER_RATE = 0.0 # in KB/s
+
+# Settings file path
+SETTINGS_FILE = 'settings.json' # Define the settings file name
