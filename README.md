@@ -17,7 +17,7 @@ NetWeaver is a versatile, multi-threaded server application with a Tkinter-based
   - [Operator](#operator)
   - [Guest](#guest)
   - [Important](#important)
-- [🖥️ Using the Application GUI](#-using-the-application-gui)
+- [🖥️ Using the Application GUI](#%EF%B8%8F-using-the-application-gui)
 - [🛑 Shutting Down](#-shutting-down)
 - [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
