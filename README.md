@@ -1,7 +1,19 @@
 ## NetWeaver - Multi-Protocol Server GUI
 
 NetWeaver is a versatile, multi-threaded server application with a Tkinter-based Graphical User Interface (GUI). It allows you to run various types of servers (TCP, Web, HTTPS, FTP) from a single application, providing logging, network status monitoring, and robust user management with Role-Based Access Control (RBAC) and encrypted settings.
-✨ Features
+
+## 📝  Table of Contents
+[✨ Features](#✨-Features) 
+[🚀 Getting Started](#🚀-Getting-Started) 
+[📦 Installation](#📦-Installation) 
+[▶️ Running the Application](#▶️-Running-the-Application)
+[🔐 Initial Login & User Management](#🔐-Initial-Login-&-User-Management) 
+[🖥️ Using the Application GUI](#✨🖥️-Using-the-Application-GUI) 
+[🛑 Shutting Down](#🛑-Shutting-Down)
+[🤝 Contributing](#🤝-Contributing)
+[📄 License](#📄-License)
+
+## ✨ Features
 
     Multi-Protocol Support: Run servers in different modes:
 
