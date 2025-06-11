@@ -136,10 +136,10 @@ def add_user(username, password, role=DEFAULT_NEW_USER_ROLE):
     # --- End RBAC ---
     _save_users(users)
 
-    if _key_was_newly_generated_this_session:
-        print(f"Encryption key generated and saved to '{KEY_FILE}'. Keep this file secure!")
-        _key_was_newly_generated_this_session = False
-        return True, "User added successfully. Encryption key generated.", role
+    # The message about key generation should only be printed if the key was
+    # actually newly generated AND this is the first user being added
+    # (or if _key_was_newly_generated_this_session is true).
+    # It's better to let the GUI handle this message if it's the main entry point.
     
     return True, "User added successfully.", role
 
@@ -237,28 +237,57 @@ def get_all_users():
 if __name__ == "__main__":
     print("--- User Management Utility ---")
 
-    # --- TEMPORARY: Ensure an admin user exists for initial setup ---
-    users = _load_users()
-    admin_exists = False
-    for user_data in users.values():
-        if user_data.get("role") == ROLE_ADMIN:
-            admin_exists = True
-            break
-            
-    if not admin_exists:
-        print("\n[INFO] No 'admin' user found. Creating default 'admin' user with password 'admin'.")
-        # Remove existing 'admin' if it has a non-admin role
-        if 'admin' in users and users['admin'].get("role") != ROLE_ADMIN:
-            print("[INFO] Existing 'admin' user found with non-admin role. Deleting and recreating.")
-            delete_user('admin') # Use the delete function to clean up
-        
-        # Add the 'admin' user with the 'administrator' role
-        success, message, role = add_user('admin', 'admin', ROLE_ADMIN)
-        if success:
-            print(f"[INFO] Default 'admin' user created successfully. Please log in with 'admin'/'admin'.")
+    # --- BLOCK FOR INITIAL USER SETUP (Runs only if users.json is empty or no admin exists) ---
+    users_data_on_startup = _load_users()
+    admin_exists_on_startup = False
+    if users_data_on_startup: # Check if users.json has any data
+        for user_data in users_data_on_startup.values():
+            if user_data.get("role") == ROLE_ADMIN:
+                admin_exists_on_startup = True
+                break
+    
+    # If no users.json exists or no admin user, then this is potentially the first run.
+    # Automatically add default users here.
+    if not users_data_on_startup or not admin_exists_on_startup:
+        print("\n[INFO] Initializing user data for first-time setup...")
+
+        # Create 'admin' user if not exists or if its role is not admin
+        if 'admin' not in users_data_on_startup or users_data_on_startup['admin'].get("role") != ROLE_ADMIN:
+            success, message, role = add_user('admin', 'admin', ROLE_ADMIN)
+            if success:
+                print(f"[INFO] Default 'admin' user created successfully ('admin'/'admin').")
+            else:
+                print(f"[ERROR] Failed to create default 'admin' user: {message}")
         else:
-            print(f"[ERROR] Failed to create default 'admin' user: {message}")
-    # --- END TEMPORARY BLOCK ---
+            print("[INFO] 'admin' user already exists with ADMIN role.")
+
+        # --- Add other default users here if desired ---
+        # Example: Add a default 'operator' user
+        if 'operator' not in users_data_on_startup:
+            success, message, role = add_user('operator', 'operator_pass', ROLE_OPERATOR)
+            if success:
+                print(f"[INFO] Default 'operator' user created ('operator'/'operator_pass').")
+            else:
+                print(f"[ERROR] Failed to create default 'operator' user: {message}")
+        else:
+            print("[INFO] 'operator' user already exists.")
+
+        # Example: Add a default 'guest' user
+        if 'guest' not in users_data_on_startup:
+            success, message, role = add_user('guest', 'guest_pass', ROLE_GUEST)
+            if success:
+                print(f"[INFO] Default 'guest' user created ('guest'/'guest_pass').")
+            else:
+                print(f"[ERROR] Failed to create default 'guest' user: {message}")
+        else:
+            print("[INFO] 'guest' user already exists.")
+
+        # This message will be printed once per new installation
+        if _key_was_newly_generated_this_session:
+            print(f"Encryption key generated and saved to '{KEY_FILE}'. Keep this file secure!")
+            _key_was_newly_generated_this_session = False
+        print("\n[INFO] Initial user setup complete. Please log in using one of the default accounts.")
+    # --- END BLOCK FOR INITIAL USER SETUP ---
 
 
     while True:
