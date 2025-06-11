@@ -205,7 +205,8 @@ Sidebar (Left Pane)
     Navigation Buttons: Quick access to different tabs: "Settings", "Logs", "User Management", "Network Status".
 
 Main Content Area (Right Pane - Tabs)
-1. Server Log Tab
+
+### 1. Server Log Tab
 
     Displays real-time logs from the server operations, client connections, and errors.
 
@@ -219,7 +220,7 @@ Main Content Area (Right Pane - Tabs)
 
         Red: Error
 
-2. Server Settings Tab
+### 2. Server Settings Tab
 
     Max Concurrent Connections: Set the maximum number of simultaneous client connections the server can handle.
 
@@ -235,7 +236,7 @@ Main Content Area (Right Pane - Tabs)
 
     Note: Changes here are automatically saved and loaded on subsequent runs. These settings can only be changed by an admin user when the server is stopped.
 
-3. User Management Tab
+### 3. User Management Tab
 
     User List: A table displaying all registered usernames and their assigned roles.
 
@@ -255,7 +256,7 @@ Main Content Area (Right Pane - Tabs)
 
     Note: All user management actions are restricted to admin users.
 
-4. Network Status Tab
+### 4. Network Status Tab
 
     Server IP Address: Displays the local IP address of the server.
 
