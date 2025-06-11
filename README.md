@@ -17,7 +17,7 @@ NetWeaver is a versatile, multi-threaded server application with a Tkinter-based
 
 ## ✨ Features
 
-# Multi-Protocol Support: Run servers in different modes:
+### Multi-Protocol Support: Run servers in different modes:
 
         TCP Server: For basic client-server communication.
 
