@@ -3,6 +3,7 @@
 NetWeaver is a versatile, multi-threaded server application with a Tkinter-based Graphical User Interface (GUI). It allows you to run various types of servers (TCP, Web, HTTPS, FTP) from a single application, providing logging, network status monitoring, and robust user management with Role-Based Access Control (RBAC) and encrypted settings.
 
 ## 📝  Table of Contents
+
 [✨ Features](#✨-Features) 
 [🚀 Getting Started](#🚀-Getting-Started) 
 [📦 Installation](#📦-Installation) 
