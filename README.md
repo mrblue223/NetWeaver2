@@ -5,7 +5,7 @@ NetWeaver is a versatile, multi-threaded server application with a Tkinter-based
 ## 📝  Table of Contents
 
 
-- [✨ Features](#Features)
+- [✨ Features](#-features)
 - [🚀 Getting Started](#Getting-Started)
 - [Project-Structure](#Project-Structure)
 - [Running-the-Application](#Running-the-Application)
