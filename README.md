@@ -37,7 +37,7 @@ NetWeaver is a versatile, multi-threaded server application with a Tkinter-based
 
 ### Intuitive GUI: 
 
-        Intuitive GUI: A modern, dark-themed Tkinter interface for easy server management.
+        A modern, dark-themed Tkinter interface for easy server management.
 
 ### Real-time Logging:
 
