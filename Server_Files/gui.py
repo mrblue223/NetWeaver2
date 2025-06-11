@@ -841,7 +841,7 @@ class TCPServerGUI:
         # These are handled by update_gui_states already which calls this.
         # So no explicit changes needed here for these.
 
-        # Settings Tab elements (Web/FTP/SSL directory browsing, etc.)
+        # Settings Tab elements (Web/FTP/SSL directory Browse, etc.)
         # The state of entry fields and browse buttons is already managed by update_mode_settings.
         # This function just needs to ensure the overall tab access/visibility is correct.
 
@@ -911,6 +911,17 @@ class LoginWindow:
         self.top_level.geometry("400x300")
         self.top_level.resizable(False, False)
         self.top_level.grab_set() # Make it modal
+
+        # Set the window icon
+        try:
+            icon_image = Image.open("assets/icons8-server-40.png")
+            self.login_icon = ImageTk.PhotoImage(icon_image)
+            self.top_level.iconphoto(False, self.login_icon)
+        except FileNotFoundError:
+            # You might want to log this or display a message in the console
+            print("[-] Login window icon (icons8-server-40.png) not found.")
+        except Exception as e:
+            print(f"[-] Error loading login window icon: {e}")
 
         # Center the login window on the screen
         self.top_level.update_idletasks() # Ensure window dimensions are calculated
