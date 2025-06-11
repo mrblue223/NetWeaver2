@@ -4,41 +4,19 @@ NetWeaver is a versatile, multi-threaded server application with a Tkinter-based
 
 ## 📝  Table of Contents
 
-✨ Features
 
-🚀 Getting Started
-
-    Prerequisites
-
-    📦 Installation
-
-    ▶️ Running the Application
-
-🔐 Initial Login & User Management
-
-    Login Window
-
-    User Roles and Permissions
-
-🖥️ Using the Application GUI
-
-    Sidebar (Left Pane)
-
-    Main Content Area (Right Pane - Tabs)
-
-        1. Server Log Tab
-
-        2. Server Settings Tab
-
-        3. User Management Tab
-
-        4. Network Status Tab
-
-🛑 Shutting Down
-
-🤝 Contributing
-
-📄 License
+- [✨ Features](#✨Features)
+- [Prerequisites](#Prerequisites)
+- [Project-Structure](#Project-Structure)
+- [Running-the-Application](#Running-the-Application)
+    - [Server-Modes](#Server-Modes)
+        - [Web-Server(HTTP)](#Web-Server(HTTP))
+        - [Web-Server(HTTPS)](#Web-Server(HTTPS))
+        - [FTP-Server](#FTP-Server)
+    - [Log-Area](#Log-Area)
+- [Troubleshooting](#Troubleshooting)
+- [Contributing](#Contributing)
+- [License](#License)
 
 ## ✨ Features
 
