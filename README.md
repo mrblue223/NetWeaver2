@@ -7,7 +7,6 @@ NetWeaver is a versatile, multi-threaded server application with a Tkinter-based
 
 - [✨ Features](#-features)
   - [Modes](#tcp-server)
-  - [Real-time Logging](#real-time-logging)
   - [User Management & RBAC](#user-management--rbac)
 - [🚀 Getting Started](#-getting-started)
   - [Prerequisites](#prerequisites)
@@ -42,14 +41,6 @@ NetWeaver is a versatile, multi-threaded server application with a Tkinter-based
 ### FTP Server:
 
         Basic FTP functionality for file transfer (LIST, RETR, STOR, CWD, PWD, PORT, PASV).
-
-### Intuitive GUI: 
-
-        A modern, dark-themed Tkinter interface for easy server management.
-
-### Real-time Logging:
-
-        Monitor server activity and client interactions in a dedicated log console with color-coded messages (info, success, warning, error).
 
 ### User Management & RBAC:
 
