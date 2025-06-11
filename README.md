@@ -6,12 +6,22 @@ NetWeaver is a versatile, multi-threaded server application with a Tkinter-based
 
 
 - [✨ Features](#-features)
-  - [tcp-server](#tcp-server)
-       
+  - [TCP Server](#tcp-server)
+  - [Web Server (HTTP)](#web-server-http)
+  - [HTTPS Server](#https-server)
+  - [FTP Server](#ftp-server)
+  - [Intuitive GUI](#intuitive-gui)
+  - [Real-time Logging](#real-time-logging)
+  - [User Management & RBAC](#user-management--rbac)
 - [🚀 Getting Started](#-getting-started)
+  - [Prerequisites](#prerequisites)
 - [📦 Installation](#-installation)
 - [▶️ Running the Application](#-running-the-application)
 - [🔐 Initial Login & User Management](#-initial-login--user-management)
+  - [Admin](#admin)
+  - [Operator](#operator)
+  - [Guest](#guest)
+  - [Important](#important)
 - [🖥️ Using the Application GUI](#-using-the-application-gui)
 - [🛑 Shutting Down](#-shutting-down)
 - [🤝 Contributing](#-contributing)
@@ -145,7 +155,9 @@ Default Credentials (First Run):
         
         Role: guest
 
-### Important: For security, change these default passwords immediately after your first login as an admin.
+### Important: 
+
+      For security, change these default passwords immediately after your first login as an admin.
 
 Login Window
 
