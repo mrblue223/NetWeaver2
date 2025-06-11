@@ -6,11 +6,7 @@ NetWeaver is a versatile, multi-threaded server application with a Tkinter-based
 
 
 - [✨ Features](#-features)
-  - [TCP Server](#tcp-server)
-  - [Web Server (HTTP)](#web-server-http)
-  - [HTTPS Server](#https-server)
-  - [FTP Server](#ftp-server)
-  - [Intuitive GUI](#intuitive-gui)
+  - [Modes](#tcp-server)
   - [Real-time Logging](#real-time-logging)
   - [User Management & RBAC](#user-management--rbac)
 - [🚀 Getting Started](#-getting-started)
