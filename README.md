@@ -19,19 +19,31 @@ NetWeaver is a versatile, multi-threaded server application with a Tkinter-based
 
 ### Multi-Protocol Support: Run servers in different modes:
 
-        TCP Server: For basic client-server communication.
+### TCP Server:
+       
+          For basic client-server communication.
+          
+### Web Server (HTTP):
+        
+        Serve static web content from a specified root directory (supports index.html by default).
 
-        Web Server: Serve static web content from a specified root directory (supports index.html by default).
+### HTTPS Server:
+  
+        Secure web serving with SSL/TLS encryption (requires certificate and key files).
+        
+### FTP Server:
 
-        HTTPS Server: Secure web serving with SSL/TLS encryption (requires certificate and key files).
+        Basic FTP functionality for file transfer (LIST, RETR, STOR, CWD, PWD, PORT, PASV).
 
-        FTP Server: Basic FTP functionality for file transfer (LIST, RETR, STOR, CWD, PWD, PORT, PASV).
+### Intuitive GUI: 
 
-    Intuitive GUI: A modern, dark-themed Tkinter interface for easy server management.
+        Intuitive GUI: A modern, dark-themed Tkinter interface for easy server management.
 
-    Real-time Logging: Monitor server activity and client interactions in a dedicated log console with color-coded messages (info, success, warning, error).
+### Real-time Logging:
 
-    User Management & RBAC:
+        Monitor server activity and client interactions in a dedicated log console with color-coded messages (info, success, warning, error).
+
+### User Management & RBAC:
 
         Secure user authentication with password hashing (bcrypt) and encryption (Fernet).
 
@@ -54,7 +66,8 @@ NetWeaver is a versatile, multi-threaded server application with a Tkinter-based
 ## 🚀 Getting Started
 
 Follow these instructions to set up and run the NetWeaver application.
-Prerequisites
+
+### Prerequisites
 
     Python 3.x installed on your system.
 
@@ -104,33 +117,33 @@ After successful installation, you can launch NetWeaver:
 
 Upon the first run, NetWeaver will automatically create some default users if users.json is not found or an admin user is missing.
 
-    Default Credentials (First Run):
+Default Credentials (First Run):
 
-        Admin:
+### Admin:
 
-            Username: admin
+        Username: admin
+        
+        Password: admin
+        
+        Role: admin
 
-            Password: admin
+### Operator:
+        
+        Username: operator
+        
+        Password: operator_pass
+        
+        Role: operator
 
-            Role: admin
+### Guest:
 
-        Operator:
+        Username: guest
+        
+        Password: guest_pass
+        
+        Role: guest
 
-            Username: operator
-
-            Password: operator_pass
-
-            Role: operator
-
-        Guest:
-
-            Username: guest
-
-            Password: guest_pass
-
-            Role: guest
-
-    Important: For security, change these default passwords immediately after your first login as an admin.
+### Important: For security, change these default passwords immediately after your first login as an admin.
 
 Login Window
 
@@ -139,7 +152,7 @@ User Roles and Permissions
 
 NetWeaver implements RBAC to control access to various GUI functionalities:
 
-    Admin (admin role):
+### Admin (admin role):
 
         Can start and stop the server.
 
@@ -151,7 +164,7 @@ NetWeaver implements RBAC to control access to various GUI functionalities:
 
         Has access to all tabs in the GUI.
 
-    Operator (operator role):
+### Operator (operator role):
 
         Cannot start or stop the server.
 
@@ -163,7 +176,7 @@ NetWeaver implements RBAC to control access to various GUI functionalities:
 
         Has access to "Server Log", "Network Status", and "Server Settings" tabs.
 
-    Guest (guest role):
+### Guest (guest role):
 
         Cannot start or stop the server.
 
