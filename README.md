@@ -3,7 +3,7 @@
 ![Python Version](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python&logoColor=white)
 ![Interface](https://img.shields.io/badge/UI-Tkinter%20Dark%20Theme-007ACC)
 ![Security](https://img.shields.io/badge/Security-RBAC%20%2B%20Bcrypt-red)
-![Protocols](https://img.shields.io/badge/Protocols-TCP%20%7C%20Web%20%7C%20FTP%20%7C%20HTTPS-orange)
+![Protocols](https://img.shields.io/badge/Protocols-HTTP%20%7C%20HTTPS%20%7C%20FTP-orange)
 ![Encryption](https://img.shields.io/badge/Data-Fernet%20Encrypted-green)
 
 NetWeaver is a versatile, multi-threaded server application with a Tkinter-based Graphical User Interface (GUI). It allows you to run various types of servers (TCP, Web, HTTPS, FTP) from a single application, providing logging, network status monitoring, and robust user management with Role-Based Access Control (RBAC) and encrypted settings.
